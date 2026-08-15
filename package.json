@@ -1,0 +1,26 @@
+{
+  "name": "review-quote-sh",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Message review (multi-model cross review) + quote (Q&A chips) for the conversation UI",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "inject": ["slots", "timer"]
+    }
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}

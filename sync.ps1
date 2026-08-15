@@ -1,4 +1,4 @@
-# review-quote-sh 一键同步脚本
+﻿# review-quote-sh 一键同步脚本
 # 用法：在 packages\dsh-review-quote 目录下执行  powershell -ExecutionPolicy Bypass -File sync.ps1
 # 作用：把源文件同步到 node_modules 的实体拷贝（两处必须一致，否则改动不生效）
 $ErrorActionPreference = 'Continue'

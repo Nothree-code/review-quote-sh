@@ -102,6 +102,16 @@ review-quote-sh/
 - 审查任务超时依赖模型适配器默认流空闲超时（约 5 分钟）
 - 动态版（docs/dynamic-archive）与静态版不兼容并存：正式使用以静态版为准
 
+## 安全加固（v1.0.1）
+
+本版本根据三模型安全评估修订：
+
+- **Origin/Sec-Fetch-Site 守卫**：全部 `/review-quote-*` 路由拒绝跨站简单请求与外来 Origin。
+- **请求体上限**：`readBody` 增加 2MB 上限，超限拒绝。
+- **模型白名单**：`/review-quote-start` 与 `/review-quote-summarize` 的 provider/model 必须来自设置中已配置的模型枚举，未配置一律拒绝（不再接受任意 provider/model）。
+- **频率限制**：token 消耗型路由（start/summarize）每分钟最多 30 次、并发任务最多 16 个，超限返回可操作提示。
+- 升级方式：同步 `sync.ps1` 后**完全重启 dsh web**。
+
 ## License
 
 MIT

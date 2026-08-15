@@ -1,6 +1,6 @@
 {
   "name": "review-quote-sh",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Message review (multi-model cross review) + quote (Q&A chips) for the conversation UI",
   "type": "module",

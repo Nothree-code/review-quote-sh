@@ -1,0 +1,7 @@
+# review-quote-sh bundle patch: inserts the message review + quote row.
+# Applied as a profile bundle layer (package.json dsh.bundle.patch manifest);
+# install with:
+#   dsh plugin --profile web add github:Nothree-code/review-quote-sh
+- insert:
+    - id: review-quote-sh
+      name: 'review-quote-sh'

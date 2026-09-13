@@ -1,6 +1,6 @@
 {
   "name": "review-quote-sh",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "description": "Message review (configurable multi-round cross review + auto summary + thinking-effort) + quote (Q&A chips) for the DSH conversation UI",
   "type": "module",

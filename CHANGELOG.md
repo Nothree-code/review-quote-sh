@@ -3,6 +3,23 @@
 本文件记录 review-quote-sh 的所有重要变更。
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [1.2.1] — 2026-09-13
+
+> ⚠️ **1.2.0 请勿使用**：该版本的客户端插件在 dsh 0.1.5-rc.2 上完全不激活（审查/引用按钮消失）。请直接使用 1.2.1。
+
+### 修复
+
+- **插件完全不加载（按钮消失）**：`exports.inject` 曾声明 `['slots','timer','settingsScope','connection']`。Cordis 的 `inject` 是**硬依赖**——声明的服务未就绪会让整个插件永不激活，按钮随之消失。现仅声明必然存在的 `slots` / `timer`，可选服务 `settingsScope` 改为 `ctx.get('settingsScope')` 惰性获取（拿到就提供设置页，拿不到则降级到旧偏好路径，不再拖垮插件）。
+- **按钮渲染崩溃（适配 dsh 0.1.5 slot 契约）**：`conversation.chat.assistant-actions` 在新版 owner props 中**只提供 `messageId`**，消息列表已从 session snapshot 迁移到 Chat snapshot。原代码调用 `props.useSession(s => s.nodes)` 得到 `undefined`，`ReviewButton` / `QuoteButton` 渲染时抛 `Cannot read properties of undefined (reading 'find')`，两个 slot 条目双双崩溃 → 按钮消失。
+  - 新增 `conversationNodesOf(props)`：优先读 `useChat(s => s.legacy.nodes)`（dsh 0.1.2+），回退 `useSession(s => s.nodes)`（旧版）；两个 hook 以**固定顺序**调用以符合 React hook 规则。
+  - 所有节点查找加空值守卫，数据缺失时降级为空数组——陌生或更旧的宿主只会「少显示一个按钮」，绝不抛错。
+  - `inputActions` / `useInput` 在新版属 **session 标准 props**，引用写入路径无需改动。
+
+### 验证
+
+- 渲染级冒烟测试（复现 0.1.5-rc.2 的 props 形状）：6/6 通过
+- 加载级冒烟测试（无 settingsScope 的降级场景）：9/9 通过
+
 ## [1.2.0] — 2026-09-12
 
 ### 新增
